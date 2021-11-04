@@ -1,0 +1,35 @@
+
+<form [formGroup]='createUserForm' (ngSubmit)="submit()" class="layout-row align-items-start justify-content-center">
+  <label>
+    <input type="text" class="white large outlined" id="user-create__title" placeholder="Title" formControlName='Title'
+      [ngClass]='{"error": createUserForm.get("Title").invalid && createUserForm.get("Title").dirty }' >
+    <p class="form-hint error-text" id="user-create__title-error" *ngIf='createUserForm.get("Title").invalid && createUserForm.get("Title").dirty '>Title is required</p>
+  </label>
+  <label>
+      <input type="text" class="white large outlined mr-10" id="user-create__name" placeholder="Name" formControlName='firstName'
+        [ngClass]='{"error": createUserForm.get("firstName").invalid && createUserForm.get("firstName").dirty }'>
+      <p class="form-hint error-text" id="user-create__name-error" *ngIf='createUserForm.get("firstName").invalid && createUserForm.get("firstName").dirty'>Name is required</p>
+  </label>
+  <button [disabled]='createUserForm.invalid' id='user-create__btn-create' type="submit" class="secondary flat my-0">Add User</button>
+</form>
+
+<div class="card w-75 mx-auto pb-30">
+  <table id='user-list__table' >
+      <thead>
+      <tr>
+          <th>Titulo</th>
+          <th>Nombre</th>
+          <th>Imagen</th>
+          <th>Accion</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let user of list; let i = index" id='user-list__table-item-{{i}}'>
+          <td><span id='user-list__table-item-{{i}}-title'>{{user.Title}}</span></td>
+          <td><span id='user-list__table-item-{{i}}-name'>{{user.firstName}} {{user.lastName}}</span></td>
+          <td><img id='user-list__table-item-{{i}}-avatar' alt='avatar' src='{{user.avatar}}'> </td>
+          <td><button (click)="deleteUser(user.id)" id="user-list__table-item-{{i}}-btn-delete">Delete</button></td>
+      </tr>
+      </tbody>
+  </table>
+</div>
